@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: Bebka-Spring
+
+  server:
+    port: 8081

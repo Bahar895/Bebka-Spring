@@ -10,4 +10,7 @@ public interface EmployeeService {
     Employee update(Long id, Employee e);
     void delete(Long id);
 
+    List<Employee> findByFirstNameContaining(String name);
+    List<Employee> findByDepartment(String department);
+
 }

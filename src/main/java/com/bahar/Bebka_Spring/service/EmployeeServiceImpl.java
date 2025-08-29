@@ -27,7 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee getById(Long id) {
-        return repo.findById(id).orElse(null);   // istersen orElseThrow da olur
+        return repo.findById(id).orElse(null);
     }
 
     @Override
@@ -44,7 +44,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void delete(Long id) {
         repo.deleteById(id);
     }
-}
+
+        @Override
+        public List<Employee> findByFirstNameContaining(String name) {
+            return repo.findByFirstNameContaining(name);
+        }
+        @Override
+        public List<Employee> findByDepartment(String department) {
+            return repo.findByDepartment(department);
+        }
+    }
+
+
 
 
 

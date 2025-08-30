@@ -2,8 +2,10 @@ package com.bahar.Bebka_Spring.controller;
 
 import com.bahar.Bebka_Spring.model.Employee;
 import com.bahar.Bebka_Spring.service.EmployeeService;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Pageable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -55,5 +57,9 @@ public class EmployeeController {
     @GetMapping("/search/native/{department}")
     public List<Employee> findByDepartmentNative(@PathVariable String department) {
         return service.findByDepartmentNative(department); }
+    @GetMapping("/page")
+    public Page<Employee> getAllPaged(Pageable pageable) {
+        return service.getAll(pageable);
+    }
     }
 

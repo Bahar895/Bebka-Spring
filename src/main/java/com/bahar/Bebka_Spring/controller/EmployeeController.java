@@ -4,6 +4,7 @@ import com.bahar.Bebka_Spring.model.Employee;
 import com.bahar.Bebka_Spring.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -48,4 +49,11 @@ public class EmployeeController {
     public List<Employee> searchByDepartment(@PathVariable String department) {
         return service.findByDepartment(department);
     }
-}
+    @GetMapping("/search/salary/{amount}")
+    public List<Employee> findBySalaryGreaterThan(@PathVariable BigDecimal amount) {
+        return service.findBySalaryGreaterThan(amount); }
+    @GetMapping("/search/native/{department}")
+    public List<Employee> findByDepartmentNative(@PathVariable String department) {
+        return service.findByDepartmentNative(department); }
+    }
+

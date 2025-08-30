@@ -1,6 +1,8 @@
 package com.bahar.Bebka_Spring.service;
 
 import com.bahar.Bebka_Spring.model.Employee;
+
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface EmployeeService {
@@ -12,5 +14,6 @@ public interface EmployeeService {
 
     List<Employee> findByFirstNameContaining(String name);
     List<Employee> findByDepartment(String department);
-
+    List<Employee> findBySalaryGreaterThan(BigDecimal amount);
+    List<Employee> findByDepartmentNative(String dept);
 }

@@ -4,6 +4,7 @@ import com.bahar.Bebka_Spring.model.Employee;
 import com.bahar.Bebka_Spring.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -51,9 +52,18 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         @Override
         public List<Employee> findByDepartment(String department) {
-            return repo.findByDepartment(department);
-        }
+            return repo.findByDepartment(department); }
+
+    @Override
+    public List<Employee> findBySalaryGreaterThan(BigDecimal amount) {
+        return repo.findBySalaryGreaterThan(amount); }
+
+    @Override
+    public List<Employee> findByDepartmentNative(String dept) {
+        return repo.findByDepartmentNative(dept); }
     }
+
+
 
 
 

@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -23,4 +24,6 @@ public class Employee {
     private String email;
 
     private String department;
+
+    private BigDecimal salary;
 }

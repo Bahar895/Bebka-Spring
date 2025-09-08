@@ -19,5 +19,8 @@ public interface EmployeeService {
     List<Employee> findBySalaryGreaterThan(BigDecimal amount);
     List<Employee> findByDepartmentNative(String dept);
     Page<Employee> getAll(Pageable pageable);
+    Employee createRequired(Employee e);
+    Employee createRequiresNew(Employee e);
+    List<Employee> readWithSupports();
 
 }

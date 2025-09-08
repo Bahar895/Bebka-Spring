@@ -61,5 +61,15 @@ public class EmployeeController {
     public Page<Employee> getAllPaged(Pageable pageable) {
         return service.getAll(pageable);
     }
+    @PostMapping("/demo/required")
+    public Employee demoRequired(@RequestBody Employee e) {
+        return service.createRequired(e); }
+    @PostMapping("/demo/requires-new")
+    public Employee demoRequiresNew(@RequestBody Employee e) {
+        return service.createRequiresNew(e); }
+    @GetMapping("/demo/supports")
+    public List<Employee> demoSupports() {
+        return service.readWithSupports(); }
+
     }
 

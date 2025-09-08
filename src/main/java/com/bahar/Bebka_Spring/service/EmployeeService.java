@@ -22,5 +22,8 @@ public interface EmployeeService {
     Employee createRequired(Employee e);
     Employee createRequiresNew(Employee e);
     List<Employee> readWithSupports();
+    Employee createWithRollback(Employee e);
+    List<Employee> getEmployeesReadCommitted();
+    List<Employee> getEmployeesRepeatableRead();
 
 }

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,8 +94,26 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional(propagation = Propagation.SUPPORTS,readOnly = true)
     public List<Employee> readWithSupports() {
         return repo.findAll(); }
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Employee createWithRollback(Employee e) {
+        repo.save(e);
+        //Simülasyon için hata fırlatalım
+        if(true) {
+            throw new RuntimeException("Simule hata- rollback çalışmalı"); }
+        return e;
+        }
+        @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    public List<Employee> getEmployeesReadCommitted() {
+        return repo.findAll(); }
+    @Override
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    public List<Employee> getEmployeesRepeatableRead() {
+        return repo.findAll(); }
+        }
 
-    }
+
 
 
 

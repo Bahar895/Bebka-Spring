@@ -70,6 +70,15 @@ public class EmployeeController {
     @GetMapping("/demo/supports")
     public List<Employee> demoSupports() {
         return service.readWithSupports(); }
-
+    @PostMapping("/demo/rollback")
+    public Employee testRollback(@RequestBody Employee e) {
+        return service.createWithRollback(e); }
+    @GetMapping("/demo/read-committed")
+    public List<Employee> testReadCommitted() {
+        return service.getEmployeesReadCommitted(); }
+    @GetMapping("/demo/repeatable-read")
+    public List<Employee> testRepeatableRead() {
+        return service.getEmployeesRepeatableRead(); }
     }
+
 

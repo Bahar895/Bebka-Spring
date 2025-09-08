@@ -8,4 +8,7 @@ import java.util.List;
 public interface StudentService {
     Student create (Student s);
     List<Student> findAll();
+    Student findById(Long id);
+    Student update(Long id,Student s);
+    void delete(Long id);
 }

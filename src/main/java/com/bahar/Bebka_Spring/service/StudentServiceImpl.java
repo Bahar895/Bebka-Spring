@@ -22,6 +22,16 @@ public class StudentServiceImpl implements StudentService {
     }
     @Override
     public List<Student> findAll() {
-        return repo.findAll();
+        return repo.findAll(); }
+    @Override
+    public Student findById(Long id) {
+        return repo.findById(id) . orElse(null); }
+    @Override
+    public Student update(Long id,Student s) {
+        s.setId(id);
+        return repo.save(s); }
+    @Override
+    public void delete(Long id) {
+        repo.deleteById(id); }
     }
-}
+

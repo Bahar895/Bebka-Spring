@@ -24,4 +24,15 @@ public class StudentController {
     public List<Student> list() {
         return service.findAll();
     }
-}
+    @GetMapping("/{id}")
+    public Student getById(@PathVariable Long id) {
+        return service.findById(id); }
+    @PutMapping("/{id}")
+    public Student update(@PathVariable Long id,@RequestBody Student s) {
+        return service.update(id,s) ; }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        service.delete(id); }
+    }
+

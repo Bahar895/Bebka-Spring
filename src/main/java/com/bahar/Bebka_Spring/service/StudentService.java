@@ -1,14 +1,14 @@
 package com.bahar.Bebka_Spring.service;
 
-import com.bahar.Bebka_Spring.model.Student;
-import jdk.dynalink.linker.LinkerServices;
+import com.bahar.Bebka_Spring.dto.request.StudentRequest;
+import com.bahar.Bebka_Spring.dto.response.StudentResponse;
 
 import java.util.List;
 
 public interface StudentService {
-    Student create (Student s);
-    List<Student> findAll();
-    Student findById(Long id);
-    Student update(Long id,Student s);
+    StudentResponse create(StudentRequest request);
+    List<StudentResponse> findAll();
+    StudentResponse findById(Long id);
+    StudentResponse update(Long id, StudentRequest request);
     void delete(Long id);
 }

@@ -1,63 +1,72 @@
-package com.bahar.Bebka_Spring.service;
+package com.bahar.Bebka_Spring.service.impl;
 
 import com.bahar.Bebka_Spring.dto.request.StudentRequest;
 import com.bahar.Bebka_Spring.dto.response.StudentResponse;
 import com.bahar.Bebka_Spring.model.Student;
 import com.bahar.Bebka_Spring.repository.StudentRepository;
+import com.bahar.Bebka_Spring.service.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
-    private final StudentRepository repo;
+    private final StudentRepository studentRepository;
+    private final ModelMapper modelMapper;
 
+    // CREATE
     @Override
+    @Transactional
     public StudentResponse create(StudentRequest request) {
-        Student s = toEntity(request);
-        return toDto(repo.save(s));
+        Student student = modelMapper.map(request, Student.class);
+        Student saved = studentRepository.save(student);
+        return modelMapper.map(saved, StudentResponse.class);
     }
 
+    // FIND ALL
     @Override
+    @Transactional(readOnly = true)
     public List<StudentResponse> findAll() {
-        return repo.findAll().stream().map(this::toDto).toList();
+        return studentRepository.findAll()
+                .stream()
+                .map(s -> modelMapper.map(s, StudentResponse.class))
+                .collect(Collectors.toList());
     }
 
+    // FIND BY ID
     @Override
+    @Transactional(readOnly = true)
     public StudentResponse findById(Long id) {
-        Student s = repo.findById(id).orElseThrow();
-        return toDto(s);
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
+        return modelMapper.map(student, StudentResponse.class);
     }
 
+    // UPDATE
     @Override
+    @Transactional
     public StudentResponse update(Long id, StudentRequest request) {
-        Student s = repo.findById(id).orElseThrow();
-        s.setName(request.getName());
-        s.setEmail(request.getEmail());
-        return toDto(repo.save(s));
+        Student student = studentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found with id: " + id));
+
+        // gelen request’ten field’leri set ediyoruz
+        modelMapper.map(request, student);
+
+        Student updated = studentRepository.save(student);
+        return modelMapper.map(updated, StudentResponse.class);
     }
 
+    // DELETE
     @Override
+    @Transactional
     public void delete(Long id) {
-        repo.deleteById(id);
-    }
-
-    // ---- mapping helpers
-    private Student toEntity(StudentRequest r) {
-        Student s = new Student();
-        s.setName(r.getName());
-        s.setEmail(r.getEmail());
-        return s;
-    }
-
-    private StudentResponse toDto(Student s) {
-        StudentResponse d = new StudentResponse();
-        d.setId(s.getId());
-        d.setName(s.getName());
-        d.setEmail(s.getEmail());
-        return d;
+        studentRepository.deleteById(id);
     }
 }

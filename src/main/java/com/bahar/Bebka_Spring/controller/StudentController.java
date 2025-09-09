@@ -5,6 +5,7 @@ import com.bahar.Bebka_Spring.dto.response.StudentResponse;
 import com.bahar.Bebka_Spring.service.StudentService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -13,12 +14,15 @@ import java.util.List;
 public class StudentController {
 
     private final StudentService service;
-    public StudentController(StudentService service) { this.service = service; }
+
+    public StudentController(StudentService service) {
+        this.service = service;
+    }
 
     // CREATE
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public StudentResponse create(@RequestBody StudentRequest request) {
+    public StudentResponse create(@Valid @RequestBody StudentRequest request) {
         return service.create(request);
     }
 
@@ -36,7 +40,7 @@ public class StudentController {
 
     // UPDATE
     @PutMapping("/{id}")
-    public StudentResponse update(@PathVariable Long id, @RequestBody StudentRequest request) {
+    public StudentResponse update(@PathVariable Long id, @Valid @RequestBody StudentRequest request) {
         return service.update(id, request);
     }
 
